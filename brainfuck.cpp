@@ -5,9 +5,6 @@
 using std::string;
 using std::vector;
 
-BrainfuckInterpreter::BrainfuckInterpreter(size_t tapeSize)
-    : tape(tapeSize, 0), pointer(0), inputPos(0) {}
-
 void BrainfuckInterpreter::run(const string &code)
 {
     size_t pc = 0;

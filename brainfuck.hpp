@@ -21,18 +21,6 @@ using std::vector;
 
 class BrainfuckInterpreter
 {
-public:
-    BrainfuckInterpreter(size_t tapeSize = BRAINFUCK_TAPE_SIZE);
-
-    // Executes bf code
-    void run(const string& code);
-
-    // Get token ',' input
-    void setInput(const string& input);
-
-    // Returns token '.' output
-    std::string getOutput() const;
-
 private:
     vector<unsigned char> tape; // memory tape
     size_t pointer;             // actual position
@@ -40,10 +28,23 @@ private:
     string outputBuffer;        // data output
     size_t inputPos;            // actual position on input
 
-    void executeToken(const char token, const string& code, size_t& pc);
+public:
+    BrainfuckInterpreter(size_t tapeSize = BRAINFUCK_TAPE_SIZE)
+        : tape(tapeSize, 0), pointer(0), inputPos(0) {}
 
-    size_t findMatchingBracket(const string& code, size_t pc);
+    // Executes bf code
+    void run(const string &code);
+
+    // Get token ',' input
+    void setInput(const string &input);
+
+    // Returns token '.' output
+    std::string getOutput() const;
+
+private:
+    void executeToken(const char token, const string &code, size_t &pc);
+
+    size_t findMatchingBracket(const string &code, size_t pc);
 };
-
 
 #endif // BRAINFUCK_HPP
