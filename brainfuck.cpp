@@ -8,7 +8,7 @@ using std::vector;
 BrainfuckInterpreter::BrainfuckInterpreter(size_t tapeSize)
     : tape(tapeSize, 0), pointer(0), inputPos(0) {}
 
-void BrainfuckInterpreter::run(const string& code)
+void BrainfuckInterpreter::run(const string &code)
 {
     size_t pc = 0;
     while (pc < code.size())
@@ -18,16 +18,20 @@ void BrainfuckInterpreter::run(const string& code)
     }
 }
 
-void BrainfuckInterpreter::executeToken(const char token, const string& code, size_t& pc)
+void BrainfuckInterpreter::executeToken(const char token, const string &code, size_t &pc)
 {
-    switch (token) {
+    switch (token)
+    {
     case BRAINFUCK_TOKEN_NEXT: // >
         pointer++;
-        if (pointer >= tape.size()) pointer = 0;
+        if (pointer >= tape.size())
+            pointer = 0;
         break;
     case BRAINFUCK_TOKEN_PREVIOUS: // <
-        if (pointer == 0) pointer = tape.size() - 1;
-        else --pointer;
+        if (pointer == 0)
+            pointer = tape.size() - 1;
+        else
+            --pointer;
         break;
     case BRAINFUCK_TOKEN_PLUS: // '+'
         ++tape[pointer];
@@ -57,7 +61,7 @@ void BrainfuckInterpreter::executeToken(const char token, const string& code, si
     }
 }
 
-void BrainfuckInterpreter::setInput(const string& input)
+void BrainfuckInterpreter::setInput(const string &input)
 {
     inputBuffer = input;
     inputPos = 0;
@@ -68,11 +72,11 @@ string BrainfuckInterpreter::getOutput() const
     return outputBuffer;
 }
 
-size_t BrainfuckInterpreter::findMatchingBracket(const string& code, size_t pc)
+size_t BrainfuckInterpreter::findMatchingBracket(const string &code, size_t pc)
 {
     char current = code[pc];
     int direction = (current == '[') ? 1 : -1;
-    int counter =1;
+    int counter = 1;
 
     while (counter != 0)
     {
@@ -80,8 +84,10 @@ size_t BrainfuckInterpreter::findMatchingBracket(const string& code, size_t pc)
         if (pc >= code.size())
             throw std::runtime_error("Error: unclosed square brackets");
 
-        if (code[pc] == '[') counter += direction;
-        else if (code[pc] == ']') counter -= direction;
+        if (code[pc] == '[')
+            counter += direction;
+        else if (code[pc] == ']')
+            counter -= direction;
     }
     return pc;
 }
